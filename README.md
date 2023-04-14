@@ -4,10 +4,12 @@
 ## to run it -> 
 1. clone
 2. open 2 terimanls
+
   a. When pwd is .../NBA Playoff/server run:
     1. npm i
     2. npm i nodemon
     3. nodemon index.js
+    
   b. when pwd is .../NBA Playoff/client/my-app/src run:
     1. npm i
     2. npm start
