@@ -57,7 +57,7 @@ router.post("/bets", async (req, res) => {
   });
   try {
     const newBet = await bet.save();
-    console.log("newBet:", newBet);
+    console.log("new bet was saved:", newBet);
     res.status(200).json(newBet);
   } catch (err) {
     console.log("err:", err);
@@ -129,6 +129,21 @@ router.put("/bets/:id", async (req, res) => {
   } catch (err) {
     console.log("err:", err);
     res.status(400).json({ message: err.message });
+  }
+});
+
+// ~~~~~~~~~~~~~~~~~~~~~~ DELETE ~~~~~~~~~~~~~~~~~~~~~~~
+router.delete("/bets/user/:userID/series/:seriesID", async (req, res) => {
+  try {
+    console.log(`deleting bets of user: ${req.params.userID} and series: ${req.params.seriesID}`);
+    const deletedBets = await Bet.deleteMany({ user: req.params.userID, series: req.params.seriesID });
+    console.log(
+      `deleted ${deletedBets.deletedCount} bets of user: ${req.params.userID} and series: ${req.params.seriesID}`
+    );
+    res.status(200).json({ message: "Deleted bets" });
+  } catch (err) {
+    console.log(`couldn't delete bets of user: ${req.params.userID} and series: ${req.params.seriesID}`);
+    res.status(500).json({ message: err.message });
   }
 });
 

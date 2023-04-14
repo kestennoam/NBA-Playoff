@@ -54,6 +54,9 @@ app.put("/bets/:id", betRoutes);
 app.put("/bets/series/:id", betRoutes);
 app.put("/rounds/:id", roundRoutes);
 
+// delete
+app.delete("/bets/user/:userID/series/:id", betRoutes);
+
 // App
 app.get("", (req, res) => {
   res.send("Hello world");

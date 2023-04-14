@@ -1,87 +1,91 @@
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import BetsTableBetCell from "./BetsTableBetCell";
 
-// function to get a bet if exists by user id and series id
+const API_URL = "http://localhost:3001";
+const userID = "6437318621bd54afa11cc52f";
 
-async function genBetByUserAndSeriesId(userId, seriesId) {
+async function onSaveBet(userID, seriesID, betWinsFirstTeam, betWinsSecondTeam) {
   try {
-    console.log("userId:", userId);
-    console.log("seriesId:", seriesId);
-    const res = await axios.get(`http://localhost:3001/bets/user/${userId}/series/${seriesId}`);
-    console.log("noam", res.data);
-    if (res.data !== null) {
-      return `${res.data.betWinsFirstTeam}-${res.data.betWinsSecondTeam}`;
-    } else {
-      return "0-0";
-    }
-  } catch (error) {
-    // return a button to add a bet
-    console.error(error);
-    return "0-0";
+    await axios.delete(`${API_URL}/bets/user/${userID}/series/${seriesID}`);
+    const response = await axios.post(`${API_URL}/bets`, {
+      user: userID,
+      series: seriesID,
+      betWinsFirstTeam,
+      betWinsSecondTeam,
+    });
+    console.log(response);
+  } catch (err) {
+    console.error(err);
   }
 }
 
-export default function BetsTable() {
-  const [series, setSeries] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/series/round")
-      .then((response) => {
-        setSeries(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  const [betData, setBetData] = useState({});
+function BetsTable() {
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    async function getBetData() {
-      const betDataPromises = series.map(async (row) => {
-        console.log("row", row);
-        const bet = await genBetByUserAndSeriesId("6437318621bd54afa11cc52f", row._id);
-        return {
-          seriesId: row.id,
-          bet: bet,
-        };
-      });
-      const betDataArray = await Promise.all(betDataPromises);
-      const betDataObject = {};
-      betDataArray.forEach((item) => {
-        betDataObject[item.seriesId] = item.bet;
-      });
-      setBetData(betDataObject);
+    async function fetchData() {
+      try {
+        const [series, bets] = await Promise.all([
+          axios.get(`${API_URL}/series/round`),
+          axios.get(`${API_URL}/bets/user/${userID}`),
+        ]);
+
+        const data = series.data.map((s) => {
+          const bet = bets.data.find((b) => b.series === s._id);
+          return {
+            id: s._id,
+            firstTeam: s.firstTeam,
+            secondTeam: s.secondTeam,
+            winsFirstTeam: s.winsFirstTeam,
+            winsSecondTeam: s.winsSecondTeam,
+            betWinsFirstTeam: bet ? bet.betWinsFirstTeam : 0,
+            betWinsSecondTeam: bet ? bet.betWinsSecondTeam : 0,
+          };
+        });
+
+        setData(data);
+      } catch (err) {
+        console.error(err);
+      }
     }
-    getBetData();
-  }, [series]);
 
+    fetchData();
+  }, []);
+  console.log("omer", localStorage.getItem("userID"));
   return (
-    <TableContainer>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer component={Paper}>
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Home Team</TableCell>
             <TableCell align="right">Away Team</TableCell>
-            <TableCell align="right">Bet</TableCell>
+            <TableCell align="right">Current Result</TableCell>
+            <TableCell align="right">Your Bet</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {series.map((row) => (
-            <TableRow key={row.id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+          {data.map((row) => (
+            <TableRow key={row.id}>
               <TableCell component="th" scope="row">
                 {row.firstTeam}
               </TableCell>
               <TableCell align="right">{row.secondTeam}</TableCell>
-              <TableCell align="right">{betData[row.id] || "Place Bet"}</TableCell>
+              <TableCell align="right">
+                {row.winsFirstTeam}-{row.winsSecondTeam}
+              </TableCell>
+              <TableCell align="right">
+                <BetsTableBetCell
+                  userID={userID}
+                  onSaveBet={onSaveBet}
+                  homeTeam={row.firstTeam}
+                  awayTeam={row.secondTeam}
+                  seriesID={row.id}
+                  betWinsFirstTeam={row.betWinsFirstTeam}
+                  betWinsSecondTeam={row.betWinsSecondTeam}
+                />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -89,3 +93,5 @@ export default function BetsTable() {
     </TableContainer>
   );
 }
+
+export default BetsTable;
