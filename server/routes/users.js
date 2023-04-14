@@ -22,8 +22,23 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-// get user score from all bets from all score of the series and then load the score from round
-// router.get("/users/score/:id", async (req, res) => {
-//     try {
+// ~~~~~~~~~~~~~~~~~~~~~~ POST ~~~~~~~~~~~~~~~~~~~~~~~
+// create and update user
+router.post("/users", async (req, res) => {
+  console.log("posting saving user:", req.body);
+  const user = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+  });
+  try {
+    const newUser = await user.save();
+    console.log("new user was saved:", newUser);
+    res.status(201).json(newUser._id);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 module.exports = router;
