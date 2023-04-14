@@ -11,7 +11,5 @@ const gameSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-// Create a model
-const User = mongoose.model("Game", gameSchema);
-// export it
+const Game = mongoose.model("Game", gameSchema);
 module.exports = Game;

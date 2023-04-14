@@ -4,25 +4,57 @@ const app = express();
 const axios = require("axios");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const userRoutes = require("./routes/users"); // Import the users router
+const userRoutes = require("./routes/users");
+const seriesRoutes = require("./routes/series");
+const betRoutes = require("./routes/bets");
+const roundRoutes = require("./routes/rounds");
+const appRoutes = require("./routes/apps");
 
 const PORT = 3001;
 
 // mongodb connection
-// print mongo uri
 console.log("process.env.MONGODB_URI:", process.env.MONGODB_URI);
-
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
 // app
-app.use(cors({ origin: "*" }));
+app.use(cors());
+app.use(express.json());
 
-// get users api
+// routes
+// GET
 app.get("/users", userRoutes);
+app.get("/series", seriesRoutes);
+app.get("/series/round", seriesRoutes);
+app.get("/series/round/user/:user", seriesRoutes);
+app.get("/bets", betRoutes);
+app.get("/bets/user/:id", betRoutes);
+app.get("/bets/user/:user/series/:series", betRoutes);
+app.get("/rounds", roundRoutes);
+app.get("/app", appRoutes);
+app.get("/app/round", appRoutes);
 
+// POST
+app.post("/series", seriesRoutes);
+app.post("/bets", betRoutes);
+app.post("/rounds", roundRoutes);
+app.post("/app", appRoutes);
+
+// PATCH
+app.patch("/series/:id", seriesRoutes);
+app.patch("/bets/:id", betRoutes);
+app.patch("/rounds/:id", roundRoutes);
+app.patch("/app", appRoutes);
+
+// PUT
+app.put("/series/:id", seriesRoutes);
+app.put("/bets/:id", betRoutes);
+app.put("/bets/series/:id", betRoutes);
+app.put("/rounds/:id", roundRoutes);
+
+// App
 app.get("", (req, res) => {
   res.send("Hello world");
 });
