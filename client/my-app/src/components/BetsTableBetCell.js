@@ -2,8 +2,17 @@ import React from "react";
 import BetIsNotEdited from "./BetIsNotEdited";
 
 function Bet(props) {
-  const { userID, seriesID, betWinsFirstTeam, betWinsSecondTeam, onSaveBet, homeTeam, awayTeam, couldBeChanged } =
-    props;
+  const {
+    userID,
+    seriesID,
+    betWinsFirstTeam,
+    betWinsSecondTeam,
+    onSaveBet,
+    homeTeam,
+    awayTeam,
+    couldBeChanged,
+    lastTimeForChange,
+  } = props;
   const [showBetButton, setShowBetButton] = React.useState(false);
   const [team1Wins, setTeam1Wins] = React.useState(betWinsFirstTeam);
   const [team2Wins, setTeam2Wins] = React.useState(betWinsSecondTeam);
@@ -93,6 +102,7 @@ function Bet(props) {
   }
 
   console.log("couldBeChanged", couldBeChanged);
+
   return couldBeChanged ? renderBetIsEdited() : <BetIsNotEdited team1Wins={team1Wins} team2Wins={team2Wins} />;
 }
 

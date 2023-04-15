@@ -23,10 +23,16 @@ async function onSaveBet(userID, seriesID, betWinsFirstTeam, betWinsSecondTeam) 
 }
 
 function BetsTable() {
+  const isLoggedIn = localStorage.getItem("userID");
+
+  if (!isLoggedIn) {
+    window.location.href = "/login";
+  }
   const [data, setData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
+      console.log("url", `${API_URL}/series/round`);
       try {
         const [series, bets] = await Promise.all([
           axios.get(`${API_URL}/series/round`),
@@ -35,15 +41,19 @@ function BetsTable() {
 
         const data = series.data.map((s) => {
           const bet = bets.data.find((b) => b.series === s._id);
+          // print date now as date
+          // parse date to timestamp
+          s.lastTimeForChange = new Date(s.lastTimeForChange).getTime();
           return {
             id: s._id,
             firstTeam: s.firstTeam,
             secondTeam: s.secondTeam,
             winsFirstTeam: s.winsFirstTeam,
             winsSecondTeam: s.winsSecondTeam,
-            couldBeChanged: s.couldBeChanged ? s.couldBeChanged : false,
+            couldBeChanged: Date.now() < s.lastTimeForChange,
             betWinsFirstTeam: bet ? bet.betWinsFirstTeam : 0,
             betWinsSecondTeam: bet ? bet.betWinsSecondTeam : 0,
+            lastTimeForChange: s.lastTimeForChange,
           };
         });
 
@@ -88,6 +98,7 @@ function BetsTable() {
                     betWinsFirstTeam={row.betWinsFirstTeam}
                     betWinsSecondTeam={row.betWinsSecondTeam}
                     couldBeChanged={row.couldBeChanged}
+                    lastTimeForChange={row.lastTimeForChange}
                   />
                 </TableCell>
               </TableRow>

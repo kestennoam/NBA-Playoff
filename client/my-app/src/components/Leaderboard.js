@@ -11,6 +11,11 @@ import { useEffect } from "react";
 import NavBar from "./NavBar";
 
 export default function Leaderboard() {
+  const isLoggedIn = localStorage.getItem("userID");
+
+  if (!isLoggedIn) {
+    window.location.href = "/login";
+  }
   const [users, setUsers] = useState([]);
   useEffect(() => {
     axios

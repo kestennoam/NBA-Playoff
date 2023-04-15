@@ -15,6 +15,7 @@ router.get("/app", async (req, res) => {
 // get app/round
 router.get("/app/round", async (req, res) => {
   try {
+    console.log("Noam");
     const app = await App.findOne();
     res.json(app.round);
   } catch (err) {
