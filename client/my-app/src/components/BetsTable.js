@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import BetsTableBetCell from "./BetsTableBetCell";
+import NavBar from "./NavBar";
 
 const API_URL = "http://localhost:3001";
 const userID = "6437318621bd54afa11cc52f";
@@ -55,42 +56,45 @@ function BetsTable() {
   }, []);
   console.log("omer", localStorage.getItem("userID"));
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Home Team</TableCell>
-            <TableCell align="right">Away Team</TableCell>
-            <TableCell align="right">Current Result</TableCell>
-            <TableCell align="right">Your Bet</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.firstTeam}
-              </TableCell>
-              <TableCell align="right">{row.secondTeam}</TableCell>
-              <TableCell align="right">
-                {row.winsFirstTeam}-{row.winsSecondTeam}
-              </TableCell>
-              <TableCell align="right">
-                <BetsTableBetCell
-                  userID={userID}
-                  onSaveBet={onSaveBet}
-                  homeTeam={row.firstTeam}
-                  awayTeam={row.secondTeam}
-                  seriesID={row.id}
-                  betWinsFirstTeam={row.betWinsFirstTeam}
-                  betWinsSecondTeam={row.betWinsSecondTeam}
-                />
-              </TableCell>
+    <>
+      <NavBar />
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Home Team</TableCell>
+              <TableCell align="right">Away Team</TableCell>
+              <TableCell align="right">Current Result</TableCell>
+              <TableCell align="right">Your Bet</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {data.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">
+                  {row.firstTeam}
+                </TableCell>
+                <TableCell align="right">{row.secondTeam}</TableCell>
+                <TableCell align="right">
+                  {row.winsFirstTeam}-{row.winsSecondTeam}
+                </TableCell>
+                <TableCell align="right">
+                  <BetsTableBetCell
+                    userID={userID}
+                    onSaveBet={onSaveBet}
+                    homeTeam={row.firstTeam}
+                    awayTeam={row.secondTeam}
+                    seriesID={row.id}
+                    betWinsFirstTeam={row.betWinsFirstTeam}
+                    betWinsSecondTeam={row.betWinsSecondTeam}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
 

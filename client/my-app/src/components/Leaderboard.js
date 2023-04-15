@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import NavBar from "./NavBar";
 
 // get data with axios localhost::3001/users
 
@@ -27,27 +28,30 @@ export default function Leaderboard() {
   }, []);
 
   return (
-    <TableContainer>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>First Name</TableCell>
-            <TableCell align="right">Last Name</TableCell>
-            <TableCell align="right">Score</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((row) => (
-            <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-              <TableCell component="th" scope="row">
-                {row.firstName}
-              </TableCell>
-              <TableCell align="right">{row.lastName}</TableCell>
-              <TableCell align="right">{row.score}</TableCell>
+    <>
+      <NavBar />
+      <TableContainer>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>First Name</TableCell>
+              <TableCell align="right">Last Name</TableCell>
+              <TableCell align="right">Score</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {users.map((row) => (
+              <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell component="th" scope="row">
+                  {row.firstName}
+                </TableCell>
+                <TableCell align="right">{row.lastName}</TableCell>
+                <TableCell align="right">{row.score}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
