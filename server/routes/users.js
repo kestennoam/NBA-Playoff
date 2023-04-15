@@ -89,6 +89,7 @@ router.post("/users", async (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
+    salt: req.body.salt,
   });
   try {
     const newUser = await user.save();

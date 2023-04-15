@@ -31,6 +31,7 @@ export default function SignUp() {
         lastName: data.get("lastName"),
         email: data.get("email"),
         password: hashedPassword,
+        salt: salt,
       });
       localStorage.setItem("userID", res.data.id);
       localStorage.setItem("firstName", res.data.firstName);

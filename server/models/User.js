@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   score: Number,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  salt: { type: String, required: true },
 });
 
 // Create a model
