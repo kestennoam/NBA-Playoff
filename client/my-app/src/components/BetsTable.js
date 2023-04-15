@@ -3,6 +3,7 @@ import axios from "axios";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 import BetsTableBetCell from "./BetsTableBetCell";
 import NavBar from "./NavBar";
+import Box from "@mui/material/Box";
 
 const API_URL = process.env.REACT_APP_SERVER_URL;
 console.log("api url", process.env);
@@ -68,44 +69,46 @@ function BetsTable() {
   return (
     <>
       <NavBar />
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Home Team</TableCell>
-              <TableCell align="right">Away Team</TableCell>
-              <TableCell align="right">Current Result</TableCell>
-              <TableCell align="right">Your Bet</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.firstTeam}
-                </TableCell>
-                <TableCell align="right">{row.secondTeam}</TableCell>
-                <TableCell align="right">
-                  {row.winsFirstTeam}-{row.winsSecondTeam}
-                </TableCell>
-                <TableCell align="right">
-                  <BetsTableBetCell
-                    userID={localStorage.getItem("userID")}
-                    onSaveBet={onSaveBet}
-                    homeTeam={row.firstTeam}
-                    awayTeam={row.secondTeam}
-                    seriesID={row.id}
-                    betWinsFirstTeam={row.betWinsFirstTeam}
-                    betWinsSecondTeam={row.betWinsSecondTeam}
-                    couldBeChanged={row.couldBeChanged}
-                    lastTimeForChange={row.lastTimeForChange}
-                  />
-                </TableCell>
+      <Box sx={{ mx: "auto", my: 4, maxWidth: 800 }}>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Home Team</TableCell>
+                <TableCell align="right">Away Team</TableCell>
+                <TableCell align="right">Current Result</TableCell>
+                <TableCell align="right">Your Bet</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {data.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.firstTeam}
+                  </TableCell>
+                  <TableCell align="right">{row.secondTeam}</TableCell>
+                  <TableCell align="right">
+                    {row.winsFirstTeam}-{row.winsSecondTeam}
+                  </TableCell>
+                  <TableCell align="right">
+                    <BetsTableBetCell
+                      userID={localStorage.getItem("userID")}
+                      onSaveBet={onSaveBet}
+                      homeTeam={row.firstTeam}
+                      awayTeam={row.secondTeam}
+                      seriesID={row.id}
+                      betWinsFirstTeam={row.betWinsFirstTeam}
+                      betWinsSecondTeam={row.betWinsSecondTeam}
+                      couldBeChanged={row.couldBeChanged}
+                      lastTimeForChange={row.lastTimeForChange}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
     </>
   );
 }
