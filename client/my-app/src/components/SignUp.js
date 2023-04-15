@@ -34,7 +34,7 @@ export default function SignUp() {
       });
       localStorage.setItem("userID", res.data.id);
       localStorage.setItem("firstName", res.data.firstName);
-      localStorage.setItem("lastName", res.data.firstName);
+      localStorage.setItem("lastName", res.data.lastName);
       window.location.href = "/";
     } catch (err) {
       setError(err.message);
@@ -53,9 +53,6 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>

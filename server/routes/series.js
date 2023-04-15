@@ -15,21 +15,14 @@ router.get("/series", async (req, res) => {
   }
 });
 
-// // get series by id
-// router.get("/series/:id", async (req, res) => {
-//   try {
-//     const series = await Series.findById(req.params.id);
-//     res.json(series);
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
 // get all series by round
 router.get("/series/round/", async (req, res) => {
   try {
-    console.log("req.route.path:", req.route.path);
-    const resFromAxios = await axios.get(`http://localhost:3001/app/round`);
+    // get the host with http
+
+    console.log(req);
+    // parse to it http
+    const resFromAxios = await axios.get(`http://${req.get("host")}/app/round`);
     const series = await Series.find({ round: resFromAxios.data });
     res.json(series);
   } catch (err) {
@@ -40,11 +33,12 @@ router.get("/series/round/", async (req, res) => {
 // get all series by round and bets of the series and user
 router.get("/series/round/user/:user", async (req, res) => {
   try {
-    console.log("req.route.path:", req.route.path);
-    const resFromAxiosSeries = await axios.get("http://localhost:3001/app/round");
+    // get host
+    const host = req.get("host");
+    const resFromAxiosSeries = await axios.get(`http://${req.get("host")}/app/round`);
     const series = await Series.find({ round: resFromAxiosSeries.data });
     // todo improve efficieny
-    const resFromAxiosBets = await axios.get(`http://localhost:3001/bets/user/${req.params.user}`);
+    const resFromAxiosBets = await axios.get(`http://${req.get("host")}/bets/user/${req.params.user}`);
     console.log("lior", resFromAxiosBets.data, req.params.user);
     return res.json({ series, betsOfUser: resFromAxiosBets.data });
   } catch (err) {
