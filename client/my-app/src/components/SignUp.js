@@ -34,7 +34,7 @@ export default function SignUp() {
       });
       localStorage.setItem("userID", res.data.id);
       localStorage.setItem("firstName", res.data.firstName);
-      localStorage.setItem("lastName", res.data.firstName);
+      localStorage.setItem("lastName", res.data.lastName);
       window.location.href = "/";
     } catch (err) {
       setError(err.message);
