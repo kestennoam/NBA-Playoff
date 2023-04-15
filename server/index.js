@@ -17,7 +17,7 @@ console.log("process.env.MONGODB_URI:", process.env.MONGODB_URI);
 const mongo_connection =
   process.env.MONGODB_URI || "mongodb+srv://noamkesten:tJRppKDQlrBF7CkS@nbaplayoff.pgzbags.mongodb.net/test";
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(mongo_connection, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
