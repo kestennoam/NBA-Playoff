@@ -29,7 +29,7 @@ router.get("/series", async (req, res) => {
 router.get("/series/round/", async (req, res) => {
   try {
     console.log("req.route.path:", req.route.path);
-    const resFromAxios = await axios.get("http://localhost:3001/app/round");
+    const resFromAxios = await axios.get(`http://localhost:3001/app/round`);
     const series = await Series.find({ round: resFromAxios.data });
     res.json(series);
   } catch (err) {

@@ -15,6 +15,9 @@ const NavBar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Bet31NBA
         </Typography>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          {localStorage.getItem("firstName")} {localStorage.getItem("lastName")}
+        </Typography>
         {isLoggedin ? (
           <>
             <Button href="/" color="inherit">

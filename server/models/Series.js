@@ -11,6 +11,7 @@ const seriesSchema = new mongoose.Schema({
   winsSecondTeam: { type: Number, default: 0 },
   // lastTimeForChange should be time and optional
   lastTimeForChange: { type: Date, default: Date.now },
+  couldBeChanged: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

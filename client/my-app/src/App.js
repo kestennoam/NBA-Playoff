@@ -5,6 +5,8 @@ import Leaderboard from "./components/Leaderboard";
 import BetsTable from "./components/BetsTable";
 
 function App() {
+  // process.env.REACT_APP_SERVER_URL = "http://127.0.0.1:3001";
+
   return (
     <Router>
       <Routes>

@@ -1,6 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
+const Bet = require("../models/Bet");
+const Series = require("../models/Series");
+const BetStatus = require("../enums/BetStatus");
+
+// ~~~~~~~~~~~~~~~~~~~~~~ HELP ~~~~~~~~~~~~~~~~~~~~~~~
+async function calculateBetScore(bet) {
+  const series = await Series.findById(bet.series).populate("round");
+  console.log("bet:", bet);
+  console.log(BetStatus.WON.toString());
+  if (bet.betStatus === BetStatus.WON.toString()) {
+    return series.round.winnerScore;
+  } else if (bet.betStatus === BetStatus.WON_EXACT.toString()) {
+    return series.exactPointScore;
+  } else {
+    return 0;
+  }
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~~ GET ~~~~~~~~~~~~~~~~~~~~~~~
 router.get("/users", async (req, res) => {
@@ -9,6 +26,47 @@ router.get("/users", async (req, res) => {
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+// get all user scores
+router.get("/users/scores", async (req, res) => {
+  try {
+    // Find all users
+    const users = await User.find();
+    console.log("users:", users);
+    // Initialize an empty object to store the scores for all users
+    const scores = [];
+
+    // Loop through each user
+    for (const user of users) {
+      // Find all bets for the user
+      const bets = await Bet.find({ user: user._id }).populate("series");
+
+      // Initialize the user's score to 0
+      let userScore = 0;
+
+      // Loop through each bet
+      for (const bet of bets) {
+        // Add the bet score to the user's total score
+        userScore = (await calculateBetScore(bet)) + userScore;
+      }
+
+      // add to scores user id, user name and user score
+      console.log("user user", user._id, user.firstName, userScore);
+      scores.push({
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        score: userScore,
+      });
+    }
+
+    // Send the scores object in the response
+    res.json(scores);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -35,7 +93,13 @@ router.post("/users", async (req, res) => {
   try {
     const newUser = await user.save();
     console.log("new user was saved:", newUser);
-    res.status(201).json(newUser._id);
+    // return user_id, first_name, last_name, email
+    res.status(201).json({
+      id: newUser._id,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

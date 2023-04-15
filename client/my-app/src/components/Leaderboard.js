@@ -5,20 +5,19 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import NavBar from "./NavBar";
 
-// get data with axios localhost::3001/users
-
 export default function Leaderboard() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3001/users")
+      .get(`${process.env.REACT_APP_SERVER_URL}/users/scores`)
       .then((response) => {
+        console.log("response.data");
+        console.log(response.data);
         // sort the data by score in desc order
         setUsers(response.data.sort((a, b) => b.score - a.score));
       })

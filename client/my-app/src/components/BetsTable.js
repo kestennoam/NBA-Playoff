@@ -4,8 +4,8 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import BetsTableBetCell from "./BetsTableBetCell";
 import NavBar from "./NavBar";
 
-const API_URL = "http://localhost:3001";
-const userID = "6437318621bd54afa11cc52f";
+const API_URL = process.env.REACT_APP_SERVER_URL;
+console.log("api url", process.env);
 
 async function onSaveBet(userID, seriesID, betWinsFirstTeam, betWinsSecondTeam) {
   try {
@@ -30,7 +30,7 @@ function BetsTable() {
       try {
         const [series, bets] = await Promise.all([
           axios.get(`${API_URL}/series/round`),
-          axios.get(`${API_URL}/bets/user/${userID}`),
+          axios.get(`${API_URL}/bets/user/${localStorage.getItem("userID")}`),
         ]);
 
         const data = series.data.map((s) => {
@@ -41,6 +41,7 @@ function BetsTable() {
             secondTeam: s.secondTeam,
             winsFirstTeam: s.winsFirstTeam,
             winsSecondTeam: s.winsSecondTeam,
+            couldBeChanged: s.couldBeChanged ? s.couldBeChanged : false,
             betWinsFirstTeam: bet ? bet.betWinsFirstTeam : 0,
             betWinsSecondTeam: bet ? bet.betWinsSecondTeam : 0,
           };
@@ -54,7 +55,6 @@ function BetsTable() {
 
     fetchData();
   }, []);
-  console.log("omer", localStorage.getItem("userID"));
   return (
     <>
       <NavBar />
@@ -80,13 +80,14 @@ function BetsTable() {
                 </TableCell>
                 <TableCell align="right">
                   <BetsTableBetCell
-                    userID={userID}
+                    userID={localStorage.getItem("userID")}
                     onSaveBet={onSaveBet}
                     homeTeam={row.firstTeam}
                     awayTeam={row.secondTeam}
                     seriesID={row.id}
                     betWinsFirstTeam={row.betWinsFirstTeam}
                     betWinsSecondTeam={row.betWinsSecondTeam}
+                    couldBeChanged={row.couldBeChanged}
                   />
                 </TableCell>
               </TableRow>

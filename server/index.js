@@ -14,6 +14,9 @@ const PORT = 3001;
 
 // mongodb connection
 console.log("process.env.MONGODB_URI:", process.env.MONGODB_URI);
+const mongo_connection =
+  process.env.MONGODB_URI || "mongodb+srv://noamkesten:tJRppKDQlrBF7CkS@nbaplayoff.pgzbags.mongodb.net/test";
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -26,6 +29,7 @@ app.use(express.json());
 // routes
 // GET
 app.get("/users", userRoutes);
+app.get("/users/scores", userRoutes);
 app.get("/series", seriesRoutes);
 app.get("/series/round", seriesRoutes);
 app.get("/series/round/user/:user", seriesRoutes);

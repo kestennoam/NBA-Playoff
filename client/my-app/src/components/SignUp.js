@@ -26,13 +26,15 @@ export default function SignUp() {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(data.get("password"), salt);
     try {
-      const res = await axios.post("http://localhost:3001/users", {
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users`, {
         firstName: data.get("firstName"),
         lastName: data.get("lastName"),
         email: data.get("email"),
         password: hashedPassword,
       });
-      localStorage.setItem("userID", res.data);
+      localStorage.setItem("userID", res.data.id);
+      localStorage.setItem("firstName", res.data.firstName);
+      localStorage.setItem("lastName", res.data.firstName);
       window.location.href = "/";
     } catch (err) {
       setError(err.message);
