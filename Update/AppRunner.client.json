@@ -1,0 +1,19 @@
+{
+  "ServiceArn": "arn:aws:apprunner:us-east-1:991093035555:service/bet31nba-client-v1/21602d7299164269a578802902562a2d",
+  "SourceConfiguration": {
+    "ImageRepository": {
+      "ImageIdentifier": "public.ecr.aws/w9q7p0v3/bet31nba/client:latest",
+      "ImageConfiguration": {
+        "Port": "3000",
+        "RuntimeEnvironmentVariables": {
+          "REACT_APP_SERVER_URL": "https://ytughvpxsp.us-east-1.awsapprunner.com"
+        }
+      },
+      "ImageRepositoryType": "ECR_PUBLIC"
+    }
+  },
+  "InstanceConfiguration": {
+    "Cpu": "1 vCPU",
+    "Memory": "3 GB"
+  }
+}
