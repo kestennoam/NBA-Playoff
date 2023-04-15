@@ -25,10 +25,21 @@ function Home() {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/bets" activeClassName="active">
+              Bets
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/leaderboard" activeClassName="active">
+              Leaderboard
+            </NavLink>
+          </li>
+
+          {/* <li>
             <NavLink to="/logout" activeClassName="active">
               Logout
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
       <h1>Welcome to My React App</h1>

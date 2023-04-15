@@ -1,4 +1,8 @@
 import * as React from "react";
+import { useState } from "react";
+import axios from "axios";
+import bcrypt from "bcryptjs";
+
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,27 +14,28 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
-import bcrypt from "bcrypt";
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const [error, setError] = useState(null);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(data.get("password"), salt);
     try {
-      const userID = await axios.post("http://localhost:3001/users", {
+      const res = await axios.post("http://localhost:3001/users", {
         firstName: data.get("firstName"),
         lastName: data.get("lastName"),
         email: data.get("email"),
         password: hashedPassword,
       });
-      console.log("new user was saved:", userID);
+      localStorage.setItem("userID", res.data);
+      window.location.href = "/";
     } catch (err) {
-      console.log(err);
+      setError(err.message);
     }
   };
 
@@ -46,9 +51,17 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          {error && (
+            <Typography variant="subtitle1" color="error">
+              {error}
+            </Typography>
+          )}
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -90,6 +103,13 @@ export default function SignUp() {
             <Button color="success" type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
           </Box>
         </Box>
       </Container>
