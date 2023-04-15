@@ -40,7 +40,7 @@ function BetsTable() {
           axios.get(`${API_URL}/bets/user/${localStorage.getItem("userID")}`),
         ]);
 
-        const data = series.data.map((s) => {
+        let data = series.data.map((s) => {
           const bet = bets.data.find((b) => b.series === s._id);
           // print date now as date
           // parse date to timestamp
@@ -57,6 +57,12 @@ function BetsTable() {
             lastTimeForChange: s.lastTimeForChange,
           };
         });
+
+        // sort data from first change to last
+        console.log("data1", data);
+        data = data.sort((a, b) => Date.parse(a.lastTimeForChange) - Date.parse(b.lastTimeForChange));
+
+        console.log("data2", data);
 
         setData(data);
       } catch (err) {
