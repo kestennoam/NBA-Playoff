@@ -1,0 +1,19 @@
+{
+  "ServiceName": "bet31nba-client-3",
+  "SourceConfiguration": {
+    "ImageRepository": {
+      "ImageIdentifier": "public.ecr.aws/w9q7p0v3/bet31nba/client:latest",
+      "ImageConfiguration": {
+        "Port": "3000",
+        "RuntimeEnvironmentVariables": {
+          "REACT_APP_SERVER_URL": "https://mamfentsqd.us-east-1.awsapprunner.com"
+        }
+      },
+      "ImageRepositoryType": "ECR_PUBLIC"
+    }
+  },
+  "InstanceConfiguration": {
+    "Cpu": "1 vCPU",
+    "Memory": "3 GB"
+  }
+}
