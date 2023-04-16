@@ -1,0 +1,19 @@
+{
+  "ServiceArn": "arn:aws:apprunner:us-east-1:991093035555:service/bet31nba-server-v1/4156e670b91f43da8f9945a62f96b3e8",
+  "SourceConfiguration": {
+    "ImageRepository": {
+      "ImageIdentifier": "public.ecr.aws/w9q7p0v3/bet31nba/server:latest",
+      "ImageConfiguration": {
+        "Port": "3001",
+        "RuntimeEnvironmentVariables": {
+          "REACT_APP_SERVER_URL": "http://mamfentsqd.us-east-1.awsapprunner.com"
+        }
+      },
+      "ImageRepositoryType": "ECR_PUBLIC"
+    }
+  },
+  "InstanceConfiguration": {
+    "Cpu": "1 vCPU",
+    "Memory": "3 GB"
+  }
+}
