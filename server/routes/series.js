@@ -24,6 +24,11 @@ router.get("/series/round/", async (req, res) => {
     // parse to it http
     const resFromAxios = await axios.get(`http://${req.get("host")}/app/round`);
     const series = await Series.find({ round: resFromAxios.data });
+    // sort by lastTimeForChange from first to last
+    series.sort((a, b) => {
+      return new Date(a.lastTimeForChange) - new Date(b.lastTimeForChange);
+    });
+
     res.json(series);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -40,6 +45,11 @@ router.get("/series/round/user/:user", async (req, res) => {
     // todo improve efficieny
     const resFromAxiosBets = await axios.get(`http://${req.get("host")}/bets/user/${req.params.user}`);
     console.log("lior", resFromAxiosBets.data, req.params.user);
+    // sort by lastTimeForChange
+    resFromAxiosBets.data.sort((a, b) => {
+      return new Date(b.lastTimeForChange) - new Date(a.lastTimeForChange);
+    });
+
     return res.json({ series, betsOfUser: resFromAxiosBets.data });
   } catch (err) {
     res.status(500).json({ message: err.message });

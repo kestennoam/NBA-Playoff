@@ -44,7 +44,11 @@ function BetsTable() {
           const bet = bets.data.find((b) => b.series === s._id);
           // print date now as date
           // parse date to timestamp
+          // gmt with 3 hours
+
           s.lastTimeForChange = new Date(s.lastTimeForChange).getTime();
+          // add 3 hours
+          s.lastTimeForChange = s.lastTimeForChange - 10800000;
           return {
             id: s._id,
             firstTeam: s.firstTeam,
@@ -59,10 +63,7 @@ function BetsTable() {
         });
 
         // sort data from first change to last
-        console.log("data1", data);
         data = data.sort((a, b) => Date.parse(a.lastTimeForChange) - Date.parse(b.lastTimeForChange));
-
-        console.log("data2", data);
 
         setData(data);
       } catch (err) {

@@ -29,6 +29,9 @@ const NavBar = () => {
             <Button href="/leaderboard" color="inherit">
               Leaderboard
             </Button>
+            <Button href="/bracket" color="inherit">
+              Bracket
+            </Button>
           </>
         ) : (
           <Button color="inherit" href="/login">

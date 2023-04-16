@@ -30,6 +30,7 @@ app.use(express.json());
 // GET
 app.get("/users", userRoutes);
 app.get("/users/scores", userRoutes);
+app.get("/users/:id", userRoutes);
 app.get("/series", seriesRoutes);
 app.get("/series/round", seriesRoutes);
 app.get("/series/round/user/:user", seriesRoutes);
