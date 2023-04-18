@@ -4,11 +4,12 @@ import SignIn from "./SignIn";
 import NavBar from "./NavBar";
 
 export default function Login() {
-  return (
-    <>
-      <NavBar />
-      {/* <SignIn /> */}
-      <SignUp />
-    </>
-  );
+    return (
+        <>
+            <NavBar/>
+            <SignIn/>
+            {/* <SignIn /> */}
+            <SignUp/>
+        </>
+    );
 }
