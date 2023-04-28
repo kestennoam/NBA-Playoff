@@ -39,6 +39,7 @@ router.get("/bets/user/:user/series/:series", async (req, res) => {
 router.get("/bets/user/:id", async (req, res) => {
   try {
     const bets = await Bet.find({ user: req.params.id });
+    console.log("bets:", bets);
     res.json(bets);
   } catch (err) {
     res.status(500).json({ message: err.message });

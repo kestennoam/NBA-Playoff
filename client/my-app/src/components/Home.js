@@ -1,6 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import NavBar from "./NavBar";
+import Avatar from "@mui/material/Avatar";
+import logo from "../assets/NBA 2023 Bracket.png";
+import UserBetsTable from "./UserBetsTable";
 
 function Home() {
   const isLoggedIn = localStorage.getItem("userID");
@@ -39,6 +41,7 @@ function Home() {
           <li>מקום שלישי - 10%</li>
         </ul>
       </div>
+      <UserBetsTable />
     </div>
   );
 }
