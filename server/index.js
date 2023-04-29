@@ -30,6 +30,7 @@ app.use(express.json());
 // GET
 app.get("/users", userRoutes);
 app.get("/users/scores", userRoutes);
+app.get("/users/salt/:email", userRoutes);
 app.get("/users/:id", userRoutes);
 app.get("/series", seriesRoutes);
 app.get("/series/round", seriesRoutes);
@@ -47,6 +48,7 @@ app.post("/bets", betRoutes);
 app.post("/rounds", roundRoutes);
 app.post("/app", appRoutes);
 app.post("/users", userRoutes);
+app.post("/users/:email/verify", userRoutes);
 
 // PATCH
 app.patch("/series/:id", seriesRoutes);
