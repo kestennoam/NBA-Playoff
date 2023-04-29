@@ -54,7 +54,7 @@ export default function SignIn() {
             if (err.response.status === 404) {
                 setErrorMessage("Invalid email address.");
             } else if (err.response.status === 403) {
-                setErrorMessage("Incorrect email or password.");
+                setErrorMessage("Incorrect password, please try again.");
             } else {
                 console.error(err);
             }
