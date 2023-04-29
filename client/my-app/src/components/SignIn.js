@@ -3,7 +3,6 @@ import {useState} from "react";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 
-
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,39 +16,45 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 const theme = createTheme();
 
 export default function SignIn() {
+    const [errorMessage, setErrorMessage] = useState("");
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log("Hello world")
+        console.log("Hello world");
         console.log({
             email: data.get("email"),
             password: data.get("password"),
         });
         try {
-            const salt = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/salt/${data.get("email")}`);
-            console.log(`saltRes: ${salt.data}`)
+            const salt = await axios.get(
+                `${process.env.REACT_APP_SERVER_URL}/users/salt/${data.get("email")}`
+            );
+            console.log(`saltRes: ${salt.data}`);
 
-            const hashedPassword = await bcrypt.hash(data.get("password"), salt.data);
-            console.log(`hashedPassword: ${hashedPassword}`)
+            const hashedPassword = await bcrypt.hash(
+                data.get("password"),
+                salt.data
+            );
+            console.log(`hashedPassword: ${hashedPassword}`);
 
-            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/${data.get("email")}/verify`, {
-                email: data.get("email"),
-                hashedPassword: hashedPassword
-            });
+            const res = await axios.post(
+                `${process.env.REACT_APP_SERVER_URL}/users/${data.get("email")}/verify`,
+                {
+                    email: data.get("email"),
+                    hashedPassword: hashedPassword,
+                }
+            );
             console.log(`Result: ${res}`);
             localStorage.setItem("userID", res.data.id);
             localStorage.setItem("firstName", res.data.firstName);
             localStorage.setItem("lastName", res.data.lastName);
             window.location.href = "/";
         } catch (err) {
-            if(err.response.status === 404){
-                console.log("Wrong mail")
-            }
-            if (err.response.status === 403) {
-                const errorMessage = document.createElement("div");
-                errorMessage.innerHTML = "Incorrect email or password.";
-                document.body.appendChild(errorMessage);
-                console.log("Incorrect password")
+            if (err.response.status === 404) {
+                setErrorMessage("Invalid email address.");
+            } else if (err.response.status === 403) {
+                setErrorMessage("Incorrect password, please try again.");
             } else {
                 console.error(err);
             }
@@ -98,6 +103,11 @@ export default function SignIn() {
                         <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
                             Sign In
                         </Button>
+                        {errorMessage && (
+                            <Typography color="error" variant="body2">
+                                {errorMessage}
+                            </Typography>
+                        )}
                     </Box>
                 </Box>
             </Container>
