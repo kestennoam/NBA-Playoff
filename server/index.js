@@ -48,6 +48,7 @@ app.post("/bets", betRoutes);
 app.post("/rounds", roundRoutes);
 app.post("/app", appRoutes);
 app.post("/users", userRoutes);
+app.post("/users/:email/verify", userRoutes);
 
 // PATCH
 app.patch("/series/:id", seriesRoutes);

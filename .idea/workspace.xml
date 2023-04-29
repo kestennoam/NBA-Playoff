@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d33528e5-bb60-4293-bda0-2d1880cec822" name="Changes" comment="Added deployments and updates">
-      <change beforePath="$PROJECT_DIR$/client/my-app/src/components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/my-app/src/components/Login.js" afterDir="false" />
+    <list default="true" id="4bf7699b-636a-44fe-93c2-5d11bd665352" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/my-app/src/components/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/my-app/src/components/SignIn.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/users.js" afterDir="false" />
@@ -12,19 +12,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager">
-    <option name="groupingKeys">
-      <option value="directory" />
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2OQ0tBnmiMFRa4IrESQAa7HycGp" />
+  <component name="ProjectId" id="2P36U3Vkv2iPdZeb4xyP1L95dGb" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -33,90 +30,43 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/ws/personal/NBA-Playoff/server/index.js",
+    "last_opened_file_path": "C:/ws/personal",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs.protractor.protractor_package": "",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\liorkesten\\AppData\\Local\\JetBrains\\Toolbox\\apps\\WebStorm\\ch-0\\222.3739.57\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\ws\personal\NBA-Playoff" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\ws\personal\NBA-Playoff\Deploy" />
-    </key>
-  </component>
-  <component name="RunManager" selected="npm.run">
-    <configuration name="Unnamed" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" nameIsGenerated="true" port="9229">
+  <component name="RunManager">
+    <configuration name="Client" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" port="3000" restartOnDisconnect="true">
       <method v="2" />
     </configuration>
-    <configuration name="Unnamed" type="JavascriptDebugType" nameIsGenerated="true">
+    <configuration default="true" type="JavascriptDebugType" uri="http://127.0.0.1:3000" useFirstLineBreakpoints="true">
       <method v="2" />
     </configuration>
-    <configuration name="index.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="server/index.js" working-dir="$PROJECT_DIR$">
-      <method v="2" />
-    </configuration>
-    <configuration name="run" type="js.build_tools.npm" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/client/my-app/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
+    <configuration default="true" type="ReactNative" factoryName="React Native">
       <node-interpreter value="project" />
+      <react-native value="" />
+      <platform value="ANDROID" />
       <envs />
-      <method v="2" />
+      <only-packager />
+      <browser value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+      <method v="2">
+        <option name="ReactNativePackager" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="server" type="js.build_tools.npm">
-      <package-json value="$PROJECT_DIR$/server/package.json" />
-      <command value="npm" />
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Attach to Node.js/Chrome.Unnamed" />
-      <item itemvalue="JavaScript Debug.Unnamed" />
-      <item itemvalue="Node.js.index.js" />
-      <item itemvalue="npm.server" />
-      <item itemvalue="npm.run" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d33528e5-bb60-4293-bda0-2d1880cec822" name="Changes" comment="" />
-      <created>1681477710517</created>
+      <changelist id="4bf7699b-636a-44fe-93c2-5d11bd665352" name="Changes" comment="" />
+      <created>1682673435925</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1681477710517</updated>
-      <workItem from="1681477711875" duration="10403000" />
-      <workItem from="1681572509102" duration="11058000" />
+      <updated>1682673435925</updated>
+      <workItem from="1682673440472" duration="4624000" />
     </task>
-    <task id="LOCAL‎-00001" summary="1.Added dockerfile, 2. removed node_modules">
-      <created>1681547863849</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL‎-00001" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1681547863849</updated>
-    </task>
-    <task id="LOCAL‎-00002" summary="Added deployments">
-      <created>1681574819308</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL‎-00002" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1681574819308</updated>
-    </task>
-    <task id="LOCAL‎-00003" summary="Added deployments and updates">
-      <created>1681576658105</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL‎-00003" />
-      <option name="project" value="LOCAL‎" />
-      <updated>1681576658105</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,38 +83,14 @@
       </map>
     </option>
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added dockerfile, revmoed node_modules" />
-    <MESSAGE value="Added deployments" />
-    <MESSAGE value="Added deployments and updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added deployments and updates" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/client/my-app/src/components/SignIn.js</url>
-          <line>20</line>
+          <line>28</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/my-app/src/components/SignIn.js</url>
-          <line>21</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/routes/users.js</url>
-          <line>24</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/routes/users.js</url>
-          <line>96</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

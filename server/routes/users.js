@@ -13,7 +13,7 @@ async function calculateBetScore(bet) {
     if (bet.betStatus === BetStatus.WON.toString()) {
         return series.round.winnerScore;
     } else if (bet.betStatus === BetStatus.WON_EXACT.toString()) {
-        return series.exactPointScore;
+        return series.round.exactPointScore;
     } else {
         return 0;
     }
@@ -86,12 +86,11 @@ router.get("/users/salt/:email", async (req, res) => {
     console.log("fetching salt");
     try {
         const data = await User.findOne({email: req.params.email}).select("salt");
-        if (!data){
+        if (!data) {
             res.status(404).json({message: `user with email: <${req.params.email}> not found`});
-        }
-        else{
+        } else {
             const saltData = data.salt;
-            res.json(saltData);
+            res.send(saltData);
         }
     } catch (err) {
         res.status(404).json({message: "user salt not found"});
@@ -124,5 +123,24 @@ router.post("/users", async (req, res) => {
         res.status(400).json({message: err.message});
     }
 });
+
+// create and update user
+router.post("/users/:email/verify", async (req, res) => {
+    try{
+        console.log("posting saving user:", req.body);
+        const user = await User.findOne({email: req.params.email});
+        console.log("User: " + user);
+        if (user.password === req.body.hashedPassword) {
+            // return user_id, first_name, last_name, email
+            res.status(201).json(user);
+        } else {
+            res.status(403).json({message: "Wrong password"});
+        }
+    }catch (e) {
+        res.status(401).json({message: err.message});
+    }
+
+});
+
 
 module.exports = router;

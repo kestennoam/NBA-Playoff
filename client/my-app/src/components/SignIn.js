@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import {useState} from "react";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 
@@ -20,16 +20,39 @@ export default function SignIn() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        console.log("Hello world")
         console.log({
             email: data.get("email"),
             password: data.get("password"),
         });
         try {
             const salt = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/salt/${data.get("email")}`);
-            console.log(`Salt: ${salt}`)
+            console.log(`saltRes: ${salt.data}`)
+
+            const hashedPassword = await bcrypt.hash(data.get("password"), salt.data);
+            console.log(`hashedPassword: ${hashedPassword}`)
+
+            const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/${data.get("email")}/verify`, {
+                email: data.get("email"),
+                hashedPassword: hashedPassword
+            });
+            console.log(`Result: ${res}`);
+            localStorage.setItem("userID", res.data.id);
+            localStorage.setItem("firstName", res.data.firstName);
+            localStorage.setItem("lastName", res.data.lastName);
             window.location.href = "/";
         } catch (err) {
-            console.error(err);
+            if(err.response.status === 404){
+                console.log("Wrong mail")
+            }
+            if (err.response.status === 403) {
+                const errorMessage = document.createElement("div");
+                errorMessage.innerHTML = "Incorrect email or password.";
+                document.body.appendChild(errorMessage);
+                console.log("Incorrect password")
+            } else {
+                console.error(err);
+            }
         }
     };
 
