@@ -46,7 +46,7 @@ export default function SignIn() {
                 }
             );
             console.log(`Result: ${res}`);
-            localStorage.setItem("userID", res.data.id);
+            localStorage.setItem("userID", res.data._id);
             localStorage.setItem("firstName", res.data.firstName);
             localStorage.setItem("lastName", res.data.lastName);
             window.location.href = "/";
